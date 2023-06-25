@@ -49,7 +49,7 @@ public class SpawnObject : MonoBehaviour
         GameObject enemy2 = ObjectPool2.SharedInstance.GetPooledObject();
         if (enemy2 != null)
         {
-            enemy2.transform.position = new Vector3(10f, -1.7f, -15f);
+            enemy2.transform.position = new Vector3(8.1f, -3.2f, -9f);
             enemy2.SetActive(true);
         }
         yield return new WaitForSeconds(timeToSpawn);
@@ -59,7 +59,7 @@ public class SpawnObject : MonoBehaviour
         GameObject enemy = ObjectPool3.SharedInstance.GetPooledObject();
         if (enemy != null)
         {
-            enemy.transform.position = new Vector3(10.02f, -2.8f, -15f);
+            enemy.transform.position = new Vector3(8.1f, -3.2f, -9f);
             enemy.SetActive(true);
         }
         yield return new WaitForSeconds(timeToSpawn);
