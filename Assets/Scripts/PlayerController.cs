@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public float gravity;
     public Vector2 velocity;
     public float jumpVelocity = 20;
-    public float groundHeight = -5;
+    public float groundHeight = -2.5f;
     public bool isGrounded = false;
 
     public bool isHoldingJump = false;
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Vector2 pos = transform.position;
+        Vector3 pos = transform.position;
         
         if (!isGrounded)
         {
