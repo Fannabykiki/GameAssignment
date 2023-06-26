@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 3656056565492222167}
   - component: {fileID: 8417411429161547837}
   - component: {fileID: 8109452088698830369}
+  - component: {fileID: 8250206295783906322}
   m_Layer: 0
   m_Name: Circle
-  m_TagString: Untagged
+  m_TagString: EnemyCir
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -136,3 +137,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &8250206295783906322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3945946798411720871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be0bb691bebc3b43a22b667ca10fd43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
