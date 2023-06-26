@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 5757186483487423395}
   - component: {fileID: -6277396148912599843}
   - component: {fileID: -2110287528106653811}
+  - component: {fileID: -8629643613106499315}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Enemy
+  m_TagString: EnemySq
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4022711209261636619}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.4548, y: -2.5613, z: 0}
+  m_LocalPosition: {x: 7.4548, y: -3.2, z: 0}
   m_LocalScale: {x: 0.8904, y: 2.6629586, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -146,3 +147,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-8629643613106499315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4022711209261636619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaefac219dcc8b34b9b716bfeb7e7b30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
