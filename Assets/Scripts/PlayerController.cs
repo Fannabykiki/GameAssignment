@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public float jumpVelocity = 20;
     public float groundHeight = -2.5f;
     public bool isGrounded = false;
-
+    public int health = 100;
     public bool isHoldingJump = false;
     public float maxHoldJumpTime = 2f;
     public float holdJumpTimer = 0.0f;
@@ -21,12 +21,16 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {       
-
+        health = 100;
     }
 
     void Update()
     {
-
+        Debug.Log(health);
+        if(health <= 0)
+        {
+            Time.timeScale = 0f;
+        }
         if (isGrounded)
         {
             if (Input.GetKeyDown(KeyCode.Space))
