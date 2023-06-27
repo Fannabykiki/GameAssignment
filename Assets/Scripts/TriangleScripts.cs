@@ -8,7 +8,7 @@ public class TriangleScripts : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            PlayerController.Instance.health -= 100;
+            PlayerController.Instance.currentHealth -= 4;
             gameObject.SetActive(false);
         }
     }

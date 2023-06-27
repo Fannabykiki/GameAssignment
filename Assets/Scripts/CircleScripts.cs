@@ -8,7 +8,7 @@ public class CircleScripts : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            PlayerController.Instance.health -= 50;
+            PlayerController.Instance.currentHealth -= 2;
             gameObject.SetActive(false);
         }
 
