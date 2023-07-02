@@ -7,6 +7,7 @@ public class SpawnObject : MonoBehaviour
     private float timeToSpawn = 2;
     public float speed = 10f;
     private float count;
+    int randomNumber;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,55 +18,80 @@ public class SpawnObject : MonoBehaviour
     {
         while (true)
         {
-            var check = Random.Range(1, 4);
-            if (check == 1)
+            AbstractEnemyFactory factory = GetRandomFactory();
+            GameObject enemy = factory.CreateEnemy();
+            if (enemy != null)
             {
-                yield return StartCoroutine(SpawnEnemy1());
-
+                if(randomNumber == 1)
+                {
+                    enemy.transform.position = new Vector3(8.1f, -2f, -9f);
+                    enemy.SetActive(true);
+                }
+                else if(randomNumber == 2)
+                {
+                    enemy.transform.position = new Vector3(10f, -1.7f, -9f);
+                    enemy.SetActive(true);
+                }
+                else
+                {
+                    enemy.transform.position = new Vector3(10.02f, -2.8f, -9f);
+                    enemy.SetActive(true);
+                }
             }
-            else if (check == 2)
-            {
-                yield return StartCoroutine(SpawnEnemy2());
-
-            }
-            else if (check == 3)
-            {
-                yield return StartCoroutine(SpawnEnemy3());
-            }
+            yield return new WaitForSeconds(timeToSpawn);
         }
     }
-    private IEnumerator SpawnEnemy1()
+    private AbstractEnemyFactory GetRandomFactory()
     {
-        GameObject enemy1 = ObjectPool1.SharedInstance.GetPooledObject();
-        if (enemy1 != null)
+         randomNumber = Random.Range(1, 4);
+        if (randomNumber == 1)
         {
-            enemy1.transform.position = new Vector3(8.1f, -2f, -9f);
-            enemy1.SetActive(true);
+            randomNumber = 1;
+            return new EnemyFactory1();
         }
-        yield return new WaitForSeconds(timeToSpawn);
-    }
-    private IEnumerator SpawnEnemy2()
-    {
-        GameObject enemy2 = ObjectPool2.SharedInstance.GetPooledObject();
-        if (enemy2 != null)
+        else if (randomNumber == 2)
         {
+            randomNumber = 2;
+            return new EnemyFactory2();
+        }
+        else
+        {
+            randomNumber = 3;
+            return new EnemyFactory3();
+        }
+    }
+    //private IEnumerator SpawnEnemy1()
+    //{
+    //    GameObject enemy1 = ObjectPool1.SharedInstance.GetPooledObject();
+    //    if (enemy1 != null)
+    //    {
+    //        enemy1.transform.position = new Vector3(8.1f, -2f, -9f);
+    //        enemy1.SetActive(true);
+    //    }
+    //    yield return new WaitForSeconds(timeToSpawn);
+    //}
+    //private IEnumerator SpawnEnemy2()
+    //{
+    //    GameObject enemy2 = ObjectPool2.SharedInstance.GetPooledObject();
+    //    if (enemy2 != null)
+    //    {
 
-            enemy2.transform.position = new Vector3(10f, -1.7f, -9f);
-            enemy2.SetActive(true);
-        }
-        yield return new WaitForSeconds(timeToSpawn);
-    }
-    private IEnumerator SpawnEnemy3()
-    {
-        GameObject enemy = ObjectPool3.SharedInstance.GetPooledObject();
-        if (enemy != null)
-        {
+    //        enemy2.transform.position = new Vector3(10f, -1.7f, -9f);
+    //        enemy2.SetActive(true);
+    //    }
+    //    yield return new WaitForSeconds(timeToSpawn);
+    //}
+    //private IEnumerator SpawnEnemy3()
+    //{
+    //    GameObject enemy = ObjectPool3.SharedInstance.GetPooledObject();
+    //    if (enemy != null)
+    //    {
 
-            enemy.transform.position = new Vector3(10.02f, -2.8f, -9f);
-            enemy.SetActive(true);
-        }
-        yield return new WaitForSeconds(timeToSpawn);
-    }
+    //        enemy.transform.position = new Vector3(10.02f, -2.8f, -9f);
+    //        enemy.SetActive(true);
+    //    }
+    //    yield return new WaitForSeconds(timeToSpawn);
+    //}
 
 
     // Update is called once per frame

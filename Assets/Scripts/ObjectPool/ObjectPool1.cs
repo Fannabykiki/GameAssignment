@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool1 : MonoBehaviour
+public class ObjectPool1 : MonoBehaviour, IObjectPool
 {
     public static ObjectPool1 SharedInstance;
     public List<GameObject> pooledObjects;
     public GameObject objectToPool;
     public int amountToPool;
+
+
 
     void Awake()
     {
@@ -25,6 +27,7 @@ public class ObjectPool1 : MonoBehaviour
             pooledObjects.Add(tmp);
         }
     }
+  
     public GameObject GetPooledObject()
     {
         foreach (GameObject obj in pooledObjects)
