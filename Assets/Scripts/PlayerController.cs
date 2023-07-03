@@ -19,10 +19,10 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        currentHealth = maxHealth;
     }
     void Start()
     {
+        currentHealth = maxHealth;
         GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
     }
 

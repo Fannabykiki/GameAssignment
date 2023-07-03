@@ -14,7 +14,7 @@ public class GUIManager : MonoBehaviour
     {
         ClearChilds(hpBarGrid);
 
-        for (int i = 0; i < maxHp; i++)
+        for (int i = 1; i <= maxHp; i++)
         {
             var hpItemUIClone = Instantiate(hpItemUI, Vector3.zero, Quaternion.identity);
             hpItemUIClone.transform.SetParent(hpBarGrid);
