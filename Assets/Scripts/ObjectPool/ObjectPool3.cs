@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool3 : MonoBehaviour
+public class ObjectPool3 : MonoBehaviour,IObjectPool
 {
     public static ObjectPool3 SharedInstance;
     public List<GameObject> pooledObjects;

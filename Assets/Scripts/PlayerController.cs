@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
     public float jumpVelocity = 20;
     public float groundHeight = -2.5f;
     public bool isGrounded = false;
-    public int health = 100;
+    public int maxHealth = 4;
+    public int currentHealth;
     public bool isHoldingJump = false;
     public float maxHoldJumpTime = 2f;
     public float holdJumpTimer = 0.0f;
@@ -20,14 +21,15 @@ public class PlayerController : MonoBehaviour
         Instance = this;
     }
     void Start()
-    {       
-        health = 100;
+    {
+        currentHealth = maxHealth;
+        GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
     }
 
     void Update()
     {
-        Debug.Log(health);
-        if(health <= 0)
+        Debug.Log(currentHealth);
+        if(currentHealth <= 0)
         {
             Time.timeScale = 0f;
         }
@@ -73,5 +75,31 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.position = pos;
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("EnemyCir"))
+        {
+            currentHealth -= 2;
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
+
+            collision.gameObject.SetActive(false);
+        }
+        else if (collision.gameObject.CompareTag("EnemyTri")){
+            currentHealth -= 4;
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
+
+            collision.gameObject.SetActive(false);
+        }
+        else if (collision.gameObject.CompareTag("EnemySq"))
+        {
+            currentHealth -= 2;
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
+
+            collision.gameObject.SetActive(false);
+        }
     }
 }
