@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public float gravity;
     public Vector2 velocity;
     public float jumpVelocity = 20;
-    public float groundHeight = -2.5f;
+    public float groundHeight = -2.93f;
     public bool isGrounded = false;
     public int maxHealth = 4;
     public int currentHealth;
