@@ -9,6 +9,8 @@ public class ObjectPool1 : MonoBehaviour
     public GameObject objectToPool;
     public int amountToPool;
 
+
+
     void Awake()
     {
         SharedInstance = this;
@@ -25,6 +27,7 @@ public class ObjectPool1 : MonoBehaviour
             pooledObjects.Add(tmp);
         }
     }
+  
     public GameObject GetPooledObject()
     {
         foreach (GameObject obj in pooledObjects)
