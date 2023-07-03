@@ -21,14 +21,14 @@ public class GUIManager : MonoBehaviour
             hpItemUIClone.transform.localScale = Vector3.one;
             hpItemUIClone.transform.localPosition = Vector3.zero;
 
-            //if(i > curHp)
-            //{
-            //    hpItemUIClone.UpdateUI(false);
-            //}
-            //else
-            //{
-            //    hpItemUIClone.UpdateUI();
-            //}
+            if (i > curHp)
+            {
+                hpItemUIClone.UpdateUI(false);
+            }
+            else
+            {
+                hpItemUIClone.UpdateUI();
+            }
         }
     }
     public void ClearChilds(Transform root)
@@ -37,7 +37,7 @@ public class GUIManager : MonoBehaviour
         {
             var child = root.GetChild(i);
 
-            if(!child) continue;
+            if (!child) continue;
 
             Destroy(child.gameObject);
         }

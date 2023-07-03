@@ -60,39 +60,6 @@ public class SpawnObject : MonoBehaviour
             return new EnemyFactory3();
         }
     }
-    //private IEnumerator SpawnEnemy1()
-    //{
-    //    GameObject enemy1 = ObjectPool1.SharedInstance.GetPooledObject();
-    //    if (enemy1 != null)
-    //    {
-    //        enemy1.transform.position = new Vector3(8.1f, -2f, -9f);
-    //        enemy1.SetActive(true);
-    //    }
-    //    yield return new WaitForSeconds(timeToSpawn);
-    //}
-    //private IEnumerator SpawnEnemy2()
-    //{
-    //    GameObject enemy2 = ObjectPool2.SharedInstance.GetPooledObject();
-    //    if (enemy2 != null)
-    //    {
-
-    //        enemy2.transform.position = new Vector3(10f, -1.7f, -9f);
-    //        enemy2.SetActive(true);
-    //    }
-    //    yield return new WaitForSeconds(timeToSpawn);
-    //}
-    //private IEnumerator SpawnEnemy3()
-    //{
-    //    GameObject enemy = ObjectPool3.SharedInstance.GetPooledObject();
-    //    if (enemy != null)
-    //    {
-
-    //        enemy.transform.position = new Vector3(10.02f, -2.8f, -9f);
-    //        enemy.SetActive(true);
-    //    }
-    //    yield return new WaitForSeconds(timeToSpawn);
-    //}
-
 
     // Update is called once per frame
     void Update()

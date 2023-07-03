@@ -19,10 +19,11 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        currentHealth = maxHealth;
     }
     void Start()
     {
-        currentHealth = maxHealth;
+        GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
     }
 
     void Update()
@@ -74,5 +75,31 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.position = pos;
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("EnemyCir"))
+        {
+            currentHealth -= 2;
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
+
+            collision.gameObject.SetActive(false);
+        }
+        else if (collision.gameObject.CompareTag("EnemyTri")){
+            currentHealth -= 4;
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
+
+            collision.gameObject.SetActive(false);
+        }
+        else if (collision.gameObject.CompareTag("EnemySq"))
+        {
+            currentHealth -= 2;
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
+
+            collision.gameObject.SetActive(false);
+        }
     }
 }
