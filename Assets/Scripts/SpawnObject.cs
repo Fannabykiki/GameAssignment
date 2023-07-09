@@ -29,12 +29,12 @@ public class SpawnObject : MonoBehaviour
                 }
                 else if(randomNumber == 2)
                 {
-                    enemy.transform.position = new Vector3(10f, -1.7f, -9f);
+                    enemy.transform.position = new Vector3(10f, Random.Range(-3.6f,-2.5f), -9f);
                     enemy.SetActive(true);
                 }
                 else
                 {
-                    enemy.transform.position = new Vector3(10.02f, -2.8f, -9f);
+                    enemy.transform.position = new Vector3(10.02f, -3.6f, -9f);
                     enemy.SetActive(true);
                 }
             }

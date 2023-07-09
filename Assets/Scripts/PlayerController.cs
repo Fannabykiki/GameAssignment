@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,14 +8,17 @@ public class PlayerController : MonoBehaviour
     public float gravity;
     public Vector2 velocity;
     public float jumpVelocity = 20;
-    public float groundHeight = -2.5f;
+    public float groundHeight = -2.93f;
     public bool isGrounded = false;
     public int maxHealth = 4;
     public int currentHealth;
     public bool isHoldingJump = false;
     public float maxHoldJumpTime = 2f;
     public float holdJumpTimer = 0.0f;
-
+    public Sprite newSprite;
+    public Sprite originalSprite;
+    public Animator animator;
+    private bool hasChangedAnimation = false;
     private void Awake()
     {
         Instance = this;
@@ -46,7 +49,24 @@ public class PlayerController : MonoBehaviour
         {
             isHoldingJump = false;
         }
+        if (Input.GetKeyDown(KeyCode.V) && !hasChangedAnimation)
+        {
+            animator.SetTrigger("press"); // "ChangeAnimation" là tên của trigger trong Animator Controller
+            GetComponent<SpriteRenderer>().sprite = newSprite;
+            hasChangedAnimation = true;
+            StartCoroutine(ResetAnimation());
+        }
+
     }
+
+    IEnumerator ResetAnimation()
+    {
+        yield return new WaitForSeconds(0.5f);
+        hasChangedAnimation = false;
+        animator.SetTrigger("reset"); // "ResetAnimation" là tên của trigger trong Animator Controller để chuyển trạng thái trở lại
+        GetComponent<SpriteRenderer>().sprite = originalSprite; // originalSprite là sprite ban đầu của nhân vật
+    }
+
     private void FixedUpdate()
     {
         Vector3 pos = transform.position;
