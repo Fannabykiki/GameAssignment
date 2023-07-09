@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("reset"); // "ResetAnimation" là tên của trigger trong Animator Controller để chuyển trạng thái trở lại
         GetComponent<SpriteRenderer>().sprite = originalSprite; // originalSprite là sprite ban đầu của nhân vật
     }
+
     private void FixedUpdate()
     {
         Vector3 pos = transform.position;
