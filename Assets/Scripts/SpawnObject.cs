@@ -24,7 +24,7 @@ public class SpawnObject : MonoBehaviour
             {
                 if(randomNumber == 1)
                 {
-                    enemy.transform.position = new Vector3(8.1f, -2.2f, -9f);
+                    enemy.transform.position = new Vector3(8.1f, -2.1f, -9f);
                     enemy.SetActive(true);
                 }
                 else if(randomNumber == 2)

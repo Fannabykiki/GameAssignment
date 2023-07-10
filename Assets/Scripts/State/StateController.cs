@@ -8,6 +8,7 @@ public class StateController : MonoBehaviour
 	private RunState runningState;
 	private JumpState jumpingState;
 	private SlideState slidingState;
+	private float timeSinceSlide = 0f;
 
 	private void Awake()
 	{
@@ -24,6 +25,15 @@ public class StateController : MonoBehaviour
 
 	void Update()
 	{
+		if (currentState == slidingState)
+		{
+			timeSinceSlide += Time.deltaTime;
+			if (timeSinceSlide >= 0.5f)
+			{
+				Invoke("ChangeToRunningState", 0f);
+			}
+		}
+
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			if (currentState == runningState)
@@ -31,30 +41,23 @@ public class StateController : MonoBehaviour
 				ChangeState(jumpingState);
 			}
 		}
-		else if (Input.GetKeyDown(KeyCode.LeftShift))
+		else if (Input.GetKeyDown(KeyCode.V))
 		{
 			if (currentState == runningState)
 			{
+				timeSinceSlide = 0f;
 				ChangeState(slidingState);
-			}
-		}
-		else if (Input.GetKeyUp(KeyCode.Space))
-		{
-			if (currentState == jumpingState)
-			{
-				ChangeState(runningState);
-			}
-		}
-		else if (Input.GetKeyUp(KeyCode.LeftShift))
-		{
-			if (currentState == slidingState)
-			{
-				ChangeState(runningState);
 			}
 		}
 
 		currentState.UpdateState();
 	}
+
+	void ChangeToRunningState()
+	{
+		ChangeState(runningState);
+	}
+
 	public void ChangeState(IState newState)
 	{
 		currentState.OnExit();
