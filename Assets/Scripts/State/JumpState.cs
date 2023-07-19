@@ -6,6 +6,7 @@ public class JumpState : IState
 {
 	public void OnEnter()
 	{
+
 	}
 
 	public void OnExit()

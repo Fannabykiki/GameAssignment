@@ -5,4 +5,5 @@ using UnityEngine;
 public abstract class AbstractEnemyFactory
 {
     public abstract GameObject CreateEnemy();
+    
 }
