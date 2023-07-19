@@ -8,6 +8,8 @@ TagManager:
   - EnemyCir
   - EnemySq
   - EnemyTri
+  - MinusScore
+  - AddHealth
   layers:
   - Default
   - TransparentFX
