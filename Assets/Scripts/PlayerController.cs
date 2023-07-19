@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,7 +20,9 @@ public class PlayerController : MonoBehaviour
     public Sprite originalSprite;
     public Animator animator;
     private bool hasChangedAnimation = false;
-	private void Awake()
+    public Text distanceUI;
+    private float distance;
+    private void Awake()
     {
         Instance = this;
     }
@@ -73,7 +76,8 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 pos = transform.position;
-        
+        distanceUI.text = "Distance: " + distance.ToString("F");
+        distance += Time.deltaTime * 0.8f;
         if (!isGrounded)
         {
             if (isHoldingJump)
@@ -126,7 +130,8 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("MinusScore"))
         {
-            Debug.Log("Minus score");
+            distance -= 10l;
+            distance = Mathf.Clamp(distance, 0, 9999999);
             collision.gameObject.SetActive(false);
         }
         if (collision.gameObject.CompareTag("AddHealth"))
