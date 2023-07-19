@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,23 +20,27 @@ public class PlayerController : MonoBehaviour
     public Sprite originalSprite;
     public Animator animator;
     private bool hasChangedAnimation = false;
+    public Text distanceUI;
+    private float distance;
     private void Awake()
     {
         Instance = this;
     }
     void Start()
     {
-        currentHealth = maxHealth;
-        GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
+		animator = GetComponent<Animator>();
+		originalSprite = GetComponent<SpriteRenderer>().sprite;
+		currentHealth = maxHealth;
+		GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
     }
 
     void Update()
     {
-        Debug.Log(currentHealth);
         if(currentHealth <= 0)
         {
             Time.timeScale = 0f;
         }
+
         if (isGrounded)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -45,32 +50,34 @@ public class PlayerController : MonoBehaviour
                 isHoldingJump = true;
             }
         }
+
         if (Input.GetKeyUp(KeyCode.Space))
         {
             isHoldingJump = false;
         }
+
         if (Input.GetKeyDown(KeyCode.V) && !hasChangedAnimation)
         {
-            animator.SetTrigger("press"); // "ChangeAnimation" là tên của trigger trong Animator Controller
-            GetComponent<SpriteRenderer>().sprite = newSprite;
-            hasChangedAnimation = true;
-            StartCoroutine(ResetAnimation());
-        }
-
+			animator.SetTrigger("press");
+			GetComponent<SpriteRenderer>().sprite = newSprite;
+			hasChangedAnimation = true;
+			StartCoroutine(ResetAnimation());
+		}
     }
 
     IEnumerator ResetAnimation()
     {
-        yield return new WaitForSeconds(0.5f);
-        hasChangedAnimation = false;
-        animator.SetTrigger("reset"); // "ResetAnimation" là tên của trigger trong Animator Controller để chuyển trạng thái trở lại
-        GetComponent<SpriteRenderer>().sprite = originalSprite; // originalSprite là sprite ban đầu của nhân vật
-    }
+		yield return new WaitForSeconds(0.3f);
+		hasChangedAnimation = false;
+		animator.SetTrigger("reset");
+		GetComponent<SpriteRenderer>().sprite = originalSprite;
+	}
 
     private void FixedUpdate()
     {
         Vector3 pos = transform.position;
-        
+        distanceUI.text = "Distance: " + distance.ToString("F");
+        distance += Time.deltaTime * 0.8f;
         if (!isGrounded)
         {
             if (isHoldingJump)
@@ -116,6 +123,20 @@ public class PlayerController : MonoBehaviour
         else if (collision.gameObject.CompareTag("EnemySq"))
         {
             currentHealth -= 2;
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
+
+            collision.gameObject.SetActive(false);
+        }
+        if (collision.gameObject.CompareTag("MinusScore"))
+        {
+            distance -= 10l;
+            distance = Mathf.Clamp(distance, 0, 9999999);
+            collision.gameObject.SetActive(false);
+        }
+        if (collision.gameObject.CompareTag("AddHealth"))
+        {
+            currentHealth += 2;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
 

@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunState : MonoBehaviour
+public class RunState : IState
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public void OnEnter()
+	{
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public void OnExit()
+	{
+	}
+
+	public void UpdateState()
+	{
+	}
 }
