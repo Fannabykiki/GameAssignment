@@ -4,7 +4,7 @@ using UnityEngine;
 public class SpawnObject : MonoBehaviour
 {
     private float TimeUpdate = 60;
-    private float timeToSpawn = 2;
+    private float timeToSpawn = 1.7f;
     public float speed = 10f;
     private float count;
     int randomNumber;
@@ -26,7 +26,7 @@ public class SpawnObject : MonoBehaviour
                 item.transform.position = new Vector3(10.02f, -3.0f, -9f);
                 item.SetActive(true);
             }
-                yield return new WaitForSeconds(0.5f); 
+                yield return new WaitForSeconds(2.3f); 
         }
     }
     private IEnumerator SpawnEnemy()

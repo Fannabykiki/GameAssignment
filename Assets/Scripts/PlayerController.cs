@@ -124,5 +124,18 @@ public class PlayerController : MonoBehaviour
 
             collision.gameObject.SetActive(false);
         }
+        if (collision.gameObject.CompareTag("MinusScore"))
+        {
+            Debug.Log("Minus score");
+            collision.gameObject.SetActive(false);
+        }
+        if (collision.gameObject.CompareTag("AddHealth"))
+        {
+            currentHealth += 2;
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
+
+            collision.gameObject.SetActive(false);
+        }
     }
 }
