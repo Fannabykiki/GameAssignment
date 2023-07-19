@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 8441168}
   - component: {fileID: 8441170}
   - component: {fileID: 8441171}
+  - component: {fileID: 8441172}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -231,6 +232,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpBarGrid: {fileID: 1547892243}
   hpItemUI: {fileID: 213040859335142604, guid: f26fe827d136af84aa2a88b8033d6353, type: 3}
+--- !u!114 &8441172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8441164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae3b34c0ab19844db893148ea21d5cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - rate: 1
+    prefab: {fileID: 8509995893920897260, guid: 79c16cf916e716746ab0d150a5d97ab4, type: 3}
+  - rate: 0.2
+    prefab: {fileID: 6388896087163975853, guid: 84f9d8dad3a922241a21a9918abce516, type: 3}
 --- !u!1 &149034062
 GameObject:
   m_ObjectHideFlags: 0

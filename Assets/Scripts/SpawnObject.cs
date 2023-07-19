@@ -13,6 +13,21 @@ public class SpawnObject : MonoBehaviour
     {
         IncreaseSpeed();
         StartCoroutine(SpawnEnemy());
+        StartCoroutine(SpawnItem());
+    }
+    private IEnumerator SpawnItem()
+    {
+        while (true)
+        {
+            AbstractEnemyFactory factory = new ItemFactory();
+            GameObject item = factory.CreateEnemy();
+            if (item != null)
+            {
+                item.transform.position = new Vector3(10.02f, -3.0f, -9f);
+                item.SetActive(true);
+            }
+                yield return new WaitForSeconds(0.5f); 
+        }
     }
     private IEnumerator SpawnEnemy()
     {
@@ -22,14 +37,14 @@ public class SpawnObject : MonoBehaviour
             GameObject enemy = factory.CreateEnemy();
             if (enemy != null)
             {
-                if(randomNumber == 1)
+                if (randomNumber == 1)
                 {
                     enemy.transform.position = new Vector3(8.1f, -2.1f, -9f);
                     enemy.SetActive(true);
                 }
-                else if(randomNumber == 2)
+                else if (randomNumber == 2)
                 {
-                    enemy.transform.position = new Vector3(10f, Random.Range(-3.6f,-2.5f), -9f);
+                    enemy.transform.position = new Vector3(10f, Random.Range(-3.6f, -2.5f), -9f);
                     enemy.SetActive(true);
                 }
                 else
@@ -43,7 +58,7 @@ public class SpawnObject : MonoBehaviour
     }
     private AbstractEnemyFactory GetRandomFactory()
     {
-         randomNumber = Random.Range(1, 4);
+        randomNumber = Random.Range(1, 4);
         if (randomNumber == 1)
         {
             randomNumber = 1;

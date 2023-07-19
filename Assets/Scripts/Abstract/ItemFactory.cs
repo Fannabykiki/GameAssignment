@@ -6,6 +6,6 @@ public class ItemFactory : AbstractEnemyFactory
 {
     public override GameObject CreateEnemy()
     {
-
+        return SpawnItemManager.SharedInstance.Spawn();
     }
 }
