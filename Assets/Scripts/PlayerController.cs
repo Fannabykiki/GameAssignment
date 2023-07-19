@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,14 +22,18 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     private bool hasChangedAnimation = false;
     public Text distanceUI;
+    public Text score;
     private float distance;
+
     private void Awake()
     {
         Instance = this;
     }
+
     void Start()
     {
-		animator = GetComponent<Animator>();
+        distanceUI.text = PlayerPrefs.GetFloat("HighScore", 0).ToString();
+        animator = GetComponent<Animator>();
 		originalSprite = GetComponent<SpriteRenderer>().sprite;
 		currentHealth = maxHealth;
 		GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
@@ -65,6 +70,14 @@ public class PlayerController : MonoBehaviour
 		}
     }
 
+    private void OnApplicationQuit()
+    {
+        if (distance > PlayerPrefs.GetFloat("HighScore", 0))
+        {
+            PlayerPrefs.SetFloat("HighScore", distance);
+        }
+    }
+
     IEnumerator ResetAnimation()
     {
 		yield return new WaitForSeconds(0.3f);
@@ -76,8 +89,9 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 pos = transform.position;
-        distanceUI.text = "Distance: " + distance.ToString("F");
+        score.text = "Distance: " + distance.ToString("F");
         distance += Time.deltaTime * 0.8f;
+       
         if (!isGrounded)
         {
             if (isHoldingJump)
@@ -130,7 +144,7 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("MinusScore"))
         {
-            distance -= 10l;
+            distance -= 10;
             distance = Mathf.Clamp(distance, 0, 9999999);
             collision.gameObject.SetActive(false);
         }
