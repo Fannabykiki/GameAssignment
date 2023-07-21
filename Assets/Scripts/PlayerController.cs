@@ -24,6 +24,13 @@ public class PlayerController : MonoBehaviour
     public Text distanceUI;
     public Text score;
     private float distance;
+    public AudioSource aus;
+    public AudioClip jump;
+    public AudioClip slide;
+    public AudioClip hitItem;
+    public AudioClip vacham;
+    public AudioClip health;
+    public AudioClip die;
 
     private void Awake()
     {
@@ -32,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        distanceUI.text = PlayerPrefs.GetFloat("HighScore", 0).ToString();
+        distanceUI.text = PlayerPrefs.GetFloat("HighScore", 0).ToString("F");
         animator = GetComponent<Animator>();
 		originalSprite = GetComponent<SpriteRenderer>().sprite;
 		currentHealth = maxHealth;
@@ -44,15 +51,20 @@ public class PlayerController : MonoBehaviour
         if(currentHealth <= 0)
         {
             Time.timeScale = 0f;
-        }
+			aus.PlayOneShot(die);
+		}
 
-        if (isGrounded)
+		if (isGrounded)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 isGrounded = false;
                 velocity.y = jumpVelocity;
                 isHoldingJump = true;
+                if( aus && jump)
+                {
+                    aus.PlayOneShot(jump);
+                }
             }
         }
 
@@ -66,6 +78,7 @@ public class PlayerController : MonoBehaviour
 			animator.SetTrigger("press");
 			GetComponent<SpriteRenderer>().sprite = newSprite;
 			hasChangedAnimation = true;
+			aus.PlayOneShot(slide);
 			StartCoroutine(ResetAnimation());
 		}
     }
@@ -124,37 +137,43 @@ public class PlayerController : MonoBehaviour
             currentHealth -= 2;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
+			aus.PlayOneShot(vacham);
 
-            collision.gameObject.SetActive(false);
+			collision.gameObject.SetActive(false);
         }
         else if (collision.gameObject.CompareTag("EnemyTri")){
             currentHealth -= 4;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
+			aus.PlayOneShot(vacham);
 
-            collision.gameObject.SetActive(false);
+			collision.gameObject.SetActive(false);
         }
         else if (collision.gameObject.CompareTag("EnemySq"))
         {
             currentHealth -= 2;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
+			aus.PlayOneShot(vacham);
 
-            collision.gameObject.SetActive(false);
+			collision.gameObject.SetActive(false);
         }
         if (collision.gameObject.CompareTag("MinusScore"))
         {
             distance -= 10;
             distance = Mathf.Clamp(distance, 0, 9999999);
-            collision.gameObject.SetActive(false);
+			aus.PlayOneShot(hitItem);
+
+			collision.gameObject.SetActive(false);
         }
         if (collision.gameObject.CompareTag("AddHealth"))
         {
             currentHealth += 2;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
+			aus.PlayOneShot(health);
 
-            collision.gameObject.SetActive(false);
+			collision.gameObject.SetActive(false);
         }
     }
 }
