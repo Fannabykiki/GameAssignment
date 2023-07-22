@@ -8,6 +8,7 @@ public class SpawnObject : MonoBehaviour
     public float speed = 10f;
     private float count;
     int randomNumber;
+    int countEnemy =0;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +27,7 @@ public class SpawnObject : MonoBehaviour
                 item.transform.position = new Vector3(10.02f, -3.0f, -9f);
                 item.SetActive(true);
             }
+            countEnemy++;
                 yield return new WaitForSeconds(2.3f); 
         }
     }
@@ -84,6 +86,11 @@ public class SpawnObject : MonoBehaviour
         if (TimeUpdate < 0)
         {
             timeToSpawn = 3;
+        }
+
+        if( countEnemy  == 30)
+        {
+            Time.timeScale = 1f;
         }
     }
     public float IncreaseSpeed()
