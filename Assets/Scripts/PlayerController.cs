@@ -14,9 +14,6 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded = false;
     public int maxHealth = 4;
     public int currentHealth;
-    public bool isHoldingJump = false;
-    public float maxHoldJumpTime = 2f;
-    public float holdJumpTimer = 0.0f;
     public Sprite newSprite;
     public Sprite originalSprite;
     public Animator animator;
@@ -42,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        distanceUI.text = PlayerPrefs.GetFloat("HighScore", 0).ToString("F");
+        distanceUI.text = "Highest: " + PlayerPrefs.GetFloat("HighScore", 0).ToString("F");
         animator = GetComponent<Animator>();
 		originalSprite = GetComponent<SpriteRenderer>().sprite;
 		currentHealth = maxHealth;
@@ -63,17 +60,11 @@ public class PlayerController : MonoBehaviour
             {
                 isGrounded = false;
                 velocity.y = jumpVelocity;
-                isHoldingJump = true;
                 if( aus && jump)
                 {
                     aus.PlayOneShot(jump);
                 }
             }
-        }
-
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            isHoldingJump = false;
         }
 
         if (Input.GetKeyDown(KeyCode.V) && !hasChangedAnimation)
@@ -110,24 +101,12 @@ public class PlayerController : MonoBehaviour
        
         if (!isGrounded)
         {
-            if (isHoldingJump)
-            {
-                holdJumpTimer += Time.deltaTime;
-                if (holdJumpTimer >= maxHoldJumpTime)
-                {
-                    isHoldingJump = false;
-                }
-            }
             pos.y += velocity.y * Time.deltaTime;
-            if (!isHoldingJump)
-            {
-                velocity.y += gravity * Time.deltaTime;
-            }
+            velocity.y += gravity * Time.deltaTime;
             if (pos.y <= groundHeight)
             {
                 pos.y = groundHeight;
                 isGrounded=true;
-                holdJumpTimer = 0;
             }
         }
 
@@ -137,7 +116,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("EnemyCir"))
         {
-            currentHealth -= 2;
+            currentHealth -= 1;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
 			aus.PlayOneShot(vacham);
@@ -145,7 +124,7 @@ public class PlayerController : MonoBehaviour
 			collision.gameObject.SetActive(false);
         }
         else if (collision.gameObject.CompareTag("EnemyTri")){
-            currentHealth -= 4;
+            currentHealth -= 2;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
 			aus.PlayOneShot(vacham);
@@ -154,7 +133,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("EnemySq"))
         {
-            currentHealth -= 2;
+            currentHealth -= 1;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
 			aus.PlayOneShot(vacham);
@@ -163,7 +142,7 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("MinusScore"))
         {
-            distance -= 10;
+            distance -= 5;
             distance = Mathf.Clamp(distance, 0, 9999999);
 			aus.PlayOneShot(hitItem);
 
@@ -171,7 +150,7 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("AddHealth"))
         {
-            currentHealth += 2;
+            currentHealth += 1;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
 			aus.PlayOneShot(health);

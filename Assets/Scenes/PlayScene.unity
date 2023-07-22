@@ -1287,7 +1287,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.60820854}
-  m_AnchoredPosition: {x: -74, y: -259.68}
+  m_AnchoredPosition: {x: -43, y: -195.68}
   m_SizeDelta: {x: 212.463, y: -1.3645}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &577019323
@@ -1708,23 +1708,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: -50
   velocity: {x: -30, y: 0}
-  jumpVelocity: 10
+  jumpVelocity: 13.5
   groundHeight: -2.76
   isGrounded: 0
   maxHealth: 4
   currentHealth: 0
-  isHoldingJump: 0
-  maxHoldJumpTime: 0.3
-  holdJumpTimer: 0
   newSprite: {fileID: 21300000, guid: 3f515f9a45146e9489b3579c861cc820, type: 3}
   originalSprite: {fileID: 21300000, guid: 0a7477dcfb8ed32488e8006a48549215, type: 3}
   animator: {fileID: 702923569}
   distanceUI: {fileID: 1164967895}
   score: {fileID: 577019323}
   aus: {fileID: 475442589}
-  jump: {fileID: 8300000, guid: d46323e22e74e46baa241cbf48c85671, type: 3}
-  slide: {fileID: 8300000, guid: 29b6fbaf40be262418d3c00c930b3ff6, type: 3}
-  hitItem: {fileID: 8300000, guid: 7bef0064f8567430cac22499c6b93d4f, type: 3}
+  jump: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
+  slide: {fileID: 8300000, guid: d46323e22e74e46baa241cbf48c85671, type: 3}
+  hitItem: {fileID: 8300000, guid: 79e6baad2fd414b82a6d49ce1568d2e5, type: 3}
   vacham: {fileID: 8300000, guid: cabfae866cab347928b74b7d0ca6bfa9, type: 3}
   health: {fileID: 8300000, guid: 79180f511d89441b9aa23ccae1992fe0, type: 3}
   die: {fileID: 8300000, guid: a0010a1a0c474473b81729eb770c485f, type: 3}
@@ -2199,8 +2196,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 257, y: -230.5}
-  m_SizeDelta: {x: 199.6788, y: 56.998}
+  m_AnchoredPosition: {x: 268, y: -174.57996}
+  m_SizeDelta: {x: 199.6788, y: 40.838}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1164967895
 MonoBehaviour:
