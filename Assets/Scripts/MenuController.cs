@@ -16,21 +16,23 @@ public class MenuController : MonoBehaviour
 
 
     [Header("Levels To Load")]
-    public string _newGameLevel1;
+    public string PlayScence;
     private string levelToLoad;
     [SerializeField] private GameObject noSaveGameDialog = null;
     public void NewGameDialogYes()
     {
-        SceneManager.LoadScene(_newGameLevel1);
-        SceneManager.LoadScene(_newGameLevel1);
+        SceneManager.LoadScene(1);
+        Debug.Log("playscene " + PlayScence);
     }
 
     public void LoadGameDialogYes()
     {
-        if (PlayerPrefs.HasKey("SavedLevel1"))
+        if (PlayerPrefs.HasKey("PlayScene"))
         {
-            levelToLoad = PlayerPrefs.GetString("SavedLevel1");
-            SceneManager.LoadScene(levelToLoad);
+            levelToLoad = PlayerPrefs.GetString("PlayScene");
+            SceneManager.LoadScene(1);
+            
+
         }
         else
         {
