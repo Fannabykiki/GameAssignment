@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
     public AudioClip health;
     public AudioClip die;
 
+    public GameOverUI gameOverUI;
+    public bool isDead;
+
     private void Awake()
     {
         Instance = this;
