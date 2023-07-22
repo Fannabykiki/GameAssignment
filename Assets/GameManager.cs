@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         {
             timer = 0;
 
-            int randNum = Random.Range(0, 3);
+            int randNum = Random.Range(0, 3); 
             Instantiate(spawnObject, spawnPoints[randNum].transform.position,Quaternion.identity);
         }
     }
