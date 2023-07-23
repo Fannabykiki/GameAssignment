@@ -8,4 +8,5 @@ public class EnemyFactory1 : AbstractEnemyFactory
     {
         return ObjectPool1.SharedInstance.GetPooledObject();
     }
+
 }

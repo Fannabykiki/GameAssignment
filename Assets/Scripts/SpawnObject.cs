@@ -4,15 +4,32 @@ using UnityEngine;
 public class SpawnObject : MonoBehaviour
 {
     private float TimeUpdate = 60;
-    private float timeToSpawn = 2;
+    private float timeToSpawn = 1.7f;
     public float speed = 10f;
     private float count;
     int randomNumber;
+    int countEnemy =0;
     // Start is called before the first frame update
     void Start()
     {
         IncreaseSpeed();
         StartCoroutine(SpawnEnemy());
+        StartCoroutine(SpawnItem());
+    }
+    private IEnumerator SpawnItem()
+    {
+        while (true)
+        {
+            AbstractEnemyFactory factory = new ItemFactory();
+            GameObject item = factory.CreateEnemy();
+            if (item != null)
+            {
+                item.transform.position = new Vector3(10.02f, -3.0f, -9f);
+                item.SetActive(true);
+            }
+            countEnemy++;
+                yield return new WaitForSeconds(2.3f); 
+        }
     }
     private IEnumerator SpawnEnemy()
     {
@@ -22,19 +39,19 @@ public class SpawnObject : MonoBehaviour
             GameObject enemy = factory.CreateEnemy();
             if (enemy != null)
             {
-                if(randomNumber == 1)
+                if (randomNumber == 1)
                 {
-                    enemy.transform.position = new Vector3(8.1f, -2f, -9f);
+                    enemy.transform.position = new Vector3(8.1f, -2.1f, -9f);
                     enemy.SetActive(true);
                 }
-                else if(randomNumber == 2)
+                else if (randomNumber == 2)
                 {
-                    enemy.transform.position = new Vector3(10f, -1.7f, -9f);
+                    enemy.transform.position = new Vector3(10f, Random.Range(-3.6f, -2.5f), -9f);
                     enemy.SetActive(true);
                 }
                 else
                 {
-                    enemy.transform.position = new Vector3(10.02f, -2.8f, -9f);
+                    enemy.transform.position = new Vector3(10.02f, -3.6f, -9f);
                     enemy.SetActive(true);
                 }
             }
@@ -43,7 +60,7 @@ public class SpawnObject : MonoBehaviour
     }
     private AbstractEnemyFactory GetRandomFactory()
     {
-         randomNumber = Random.Range(1, 4);
+        randomNumber = Random.Range(1, 4);
         if (randomNumber == 1)
         {
             randomNumber = 1;
@@ -69,6 +86,11 @@ public class SpawnObject : MonoBehaviour
         if (TimeUpdate < 0)
         {
             timeToSpawn = 3;
+        }
+
+        if( countEnemy  == 30)
+        {
+            Time.timeScale = 1f;
         }
     }
     public float IncreaseSpeed()
