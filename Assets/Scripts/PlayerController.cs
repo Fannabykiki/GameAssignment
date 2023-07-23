@@ -28,9 +28,8 @@ public class PlayerController : MonoBehaviour
     public AudioClip vacham;
     public AudioClip health;
     public AudioClip die;
-
-    public GameOverUI gameOverUI;
     public bool isDead;
+    public GUIManager manager;
 
     private void Awake()
     {
@@ -39,51 +38,26 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        distanceUI.text = "Highest: " + PlayerPrefs.GetFloat("HighScore", 0).ToString("F");
+		Time.timeScale = 1f;
+		distanceUI.text = "Highest: " + PlayerPrefs.GetFloat("HighScore", 0).ToString("F");
         animator = GetComponent<Animator>();
 		originalSprite = GetComponent<SpriteRenderer>().sprite;
 		currentHealth = maxHealth;
 		GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
     }
-
     void Update()
     {
         if(currentHealth <= 0)
         {
             Time.timeScale = 0f;
 			aus.PlayOneShot(die);
+            manager.GameOver();
+			if (distance > PlayerPrefs.GetFloat("HighScore", 0))
+			{
+				PlayerPrefs.SetFloat("HighScore", distance);
+			}
 		}
-
-		if (isGrounded)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                isGrounded = false;
-                velocity.y = jumpVelocity;
-                if( aus && jump)
-                {
-                    aus.PlayOneShot(jump);
-                }
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.V) && !hasChangedAnimation)
-        {
-			animator.SetTrigger("press");
-			GetComponent<SpriteRenderer>().sprite = newSprite;
-			hasChangedAnimation = true;
-			aus.PlayOneShot(slide);
-			StartCoroutine(ResetAnimation());
-		}
-    }
-
-    private void OnApplicationQuit()
-    {
-        if (distance > PlayerPrefs.GetFloat("HighScore", 0))
-        {
-            PlayerPrefs.SetFloat("HighScore", distance);
-        }
-    }
+	}
 
     IEnumerator ResetAnimation()
     {
@@ -158,4 +132,28 @@ public class PlayerController : MonoBehaviour
 			collision.gameObject.SetActive(false);
         }
     }
+    public void OnJump()
+    {
+		if (isGrounded)
+		{
+			isGrounded = false;
+			velocity.y = jumpVelocity;
+			if (aus && jump)
+			{
+				aus.PlayOneShot(jump);
+			}
+		}
+	}
+
+    public void OnSlide()
+    {
+		if (!hasChangedAnimation)
+		{
+			animator.SetTrigger("press");
+			GetComponent<SpriteRenderer>().sprite = newSprite;
+			hasChangedAnimation = true;
+			aus.PlayOneShot(slide);
+			StartCoroutine(ResetAnimation());
+		}
+	}
 }

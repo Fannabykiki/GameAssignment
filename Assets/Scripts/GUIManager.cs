@@ -6,11 +6,22 @@ public class GUIManager : MonoBehaviour
     public Transform hpBarGrid;
     public HpItemUI hpItemUI;
     public static GUIManager Instance;
+    public GameObject gameOverUI;
+    public GameObject gameWinUI;
     public void Awake()
     {
         Instance = this;
     }
-    public void DrawHpBarGrid(int curHp, int maxHp)
+
+    public void GameOver()
+    {
+		gameOverUI.SetActive(true);
+    }
+	public void GameWin()
+	{
+		gameWinUI.SetActive(true);
+	}
+	public void DrawHpBarGrid(int curHp, int maxHp)
     {
         ClearChilds(hpBarGrid);
 

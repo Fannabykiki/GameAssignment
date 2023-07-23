@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IState
 {
-	public void OnEnter();
-	public void UpdateState();
-	public void OnExit();
+	public void OnEnter(StateController controller);
+	public void UpdateState(StateController controller);
+	public void OnExit(StateController controller);
 }

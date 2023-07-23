@@ -5,63 +5,31 @@ using UnityEngine;
 public class StateController : MonoBehaviour
 {
 	IState currentState;
-	private RunState runningState;
-	private JumpState jumpingState;
-	private SlideState slidingState;
-	private float timeSinceSlide = 0f;
+	public JumpState jumpState = new JumpState();
+	public RunState runState = new RunState();
+	public SlideState slideState = new SlideState();
 
-	private void Awake()
-	{
-		runningState = new RunState();
-		jumpingState = new JumpState();
-		slidingState = new SlideState();
-	}
 
 	private void Start()
 	{
-		currentState = runningState;
-		currentState.OnEnter();
+		ChangeState(runState);
 	}
 
 	void Update()
 	{
-		if (currentState == slidingState)
+		if (currentState != null)
 		{
-			timeSinceSlide += Time.deltaTime;
-			if (timeSinceSlide >= 0.5f)
-			{
-				Invoke("ChangeToRunningState", 0f);
-			}
+			currentState.UpdateState(this);
 		}
-
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			if (currentState == runningState)
-			{
-				ChangeState(jumpingState);
-			}
-		}
-		else if (Input.GetKeyDown(KeyCode.V))
-		{
-			if (currentState == runningState)
-			{
-				timeSinceSlide = 0f;
-				ChangeState(slidingState);
-			}
-		}
-
-		currentState.UpdateState();
-	}
-
-	void ChangeToRunningState()
-	{
-		ChangeState(runningState);
 	}
 
 	public void ChangeState(IState newState)
 	{
-		currentState.OnExit();
+		if (currentState != null)
+		{
+			currentState.OnExit(this);
+		}
 		currentState = newState;
-		currentState.OnEnter();
+		currentState.OnEnter(this);
 	}
 }

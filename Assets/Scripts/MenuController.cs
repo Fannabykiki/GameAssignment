@@ -30,8 +30,6 @@ public class MenuController : MonoBehaviour
         {
             levelToLoad = PlayerPrefs.GetString("PlayScene");
             SceneManager.LoadScene(1);
-            
-
         }
         else
         {

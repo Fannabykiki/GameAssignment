@@ -9,8 +9,10 @@ public class SpawnObject : MonoBehaviour
     private float count;
     int randomNumber;
     int countEnemy =0;
-    // Start is called before the first frame update
-    void Start()
+	public GUIManager manager;
+
+	// Start is called before the first frame update
+	void Start()
     {
         IncreaseSpeed();
         StartCoroutine(SpawnEnemy());
@@ -91,9 +93,14 @@ public class SpawnObject : MonoBehaviour
         if( countEnemy  == 30)
         {
             Time.timeScale = 1f;
+            manager.GameWin();
         }
-    }
-    public float IncreaseSpeed()
+	}
+	void OnBecameInvisible()
+	{
+		gameObject.SetActive(false);
+	}
+	public float IncreaseSpeed()
     {
         count += Time.deltaTime;
         if (count > 3)
