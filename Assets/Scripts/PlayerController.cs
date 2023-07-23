@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -29,8 +30,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip health;
     public AudioClip die;
 
-    public GameOverUI gameOverUI;
-    public bool isDead;
+
 
     private void Awake()
     {
@@ -41,26 +41,29 @@ public class PlayerController : MonoBehaviour
     {
         distanceUI.text = "Highest: " + PlayerPrefs.GetFloat("HighScore", 0).ToString("F");
         animator = GetComponent<Animator>();
-		originalSprite = GetComponent<SpriteRenderer>().sprite;
-		currentHealth = maxHealth;
-		GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
+        originalSprite = GetComponent<SpriteRenderer>().sprite;
+        currentHealth = maxHealth;
+        GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
     }
 
     void Update()
     {
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             Time.timeScale = 0f;
-			aus.PlayOneShot(die);
-		}
 
-		if (isGrounded)
+            aus.PlayOneShot(die);
+
+
+        }
+
+        if (isGrounded)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 isGrounded = false;
                 velocity.y = jumpVelocity;
-                if( aus && jump)
+                if (aus && jump)
                 {
                     aus.PlayOneShot(jump);
                 }
@@ -69,12 +72,12 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.V) && !hasChangedAnimation)
         {
-			animator.SetTrigger("press");
-			GetComponent<SpriteRenderer>().sprite = newSprite;
-			hasChangedAnimation = true;
-			aus.PlayOneShot(slide);
-			StartCoroutine(ResetAnimation());
-		}
+            animator.SetTrigger("press");
+            GetComponent<SpriteRenderer>().sprite = newSprite;
+            hasChangedAnimation = true;
+            aus.PlayOneShot(slide);
+            StartCoroutine(ResetAnimation());
+        }
     }
 
     private void OnApplicationQuit()
@@ -87,18 +90,18 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator ResetAnimation()
     {
-		yield return new WaitForSeconds(0.3f);
-		hasChangedAnimation = false;
-		animator.SetTrigger("reset");
-		GetComponent<SpriteRenderer>().sprite = originalSprite;
-	}
+        yield return new WaitForSeconds(0.3f);
+        hasChangedAnimation = false;
+        animator.SetTrigger("reset");
+        GetComponent<SpriteRenderer>().sprite = originalSprite;
+    }
 
     private void FixedUpdate()
     {
         Vector3 pos = transform.position;
         score.text = "Distance: " + distance.ToString("F");
         distance += Time.deltaTime * 0.8f;
-       
+
         if (!isGrounded)
         {
             pos.y += velocity.y * Time.deltaTime;
@@ -106,7 +109,7 @@ public class PlayerController : MonoBehaviour
             if (pos.y <= groundHeight)
             {
                 pos.y = groundHeight;
-                isGrounded=true;
+                isGrounded = true;
             }
         }
 
@@ -119,43 +122,47 @@ public class PlayerController : MonoBehaviour
             currentHealth -= 1;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
-			aus.PlayOneShot(vacham);
+            aus.PlayOneShot(vacham);
 
-			collision.gameObject.SetActive(false);
+            collision.gameObject.SetActive(false);
         }
-        else if (collision.gameObject.CompareTag("EnemyTri")){
+        else if (collision.gameObject.CompareTag("EnemyTri"))
+        {
             currentHealth -= 2;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
-			aus.PlayOneShot(vacham);
+            aus.PlayOneShot(vacham);
 
-			collision.gameObject.SetActive(false);
+            collision.gameObject.SetActive(false);
         }
         else if (collision.gameObject.CompareTag("EnemySq"))
         {
             currentHealth -= 1;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
-			aus.PlayOneShot(vacham);
+            aus.PlayOneShot(vacham);
 
-			collision.gameObject.SetActive(false);
+            collision.gameObject.SetActive(false);
         }
         if (collision.gameObject.CompareTag("MinusScore"))
         {
             distance -= 5;
             distance = Mathf.Clamp(distance, 0, 9999999);
-			aus.PlayOneShot(hitItem);
+            aus.PlayOneShot(hitItem);
 
-			collision.gameObject.SetActive(false);
+            collision.gameObject.SetActive(false);
         }
         if (collision.gameObject.CompareTag("AddHealth"))
         {
             currentHealth += 1;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
             GUIManager.Instance.DrawHpBarGrid(currentHealth, maxHealth);
-			aus.PlayOneShot(health);
+            aus.PlayOneShot(health);
 
-			collision.gameObject.SetActive(false);
+            collision.gameObject.SetActive(false);
         }
     }
+
+   
+
 }
